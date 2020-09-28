@@ -19,16 +19,6 @@ bool check (int i, int j)
     return 1;
 }
 
-void op (int x)
-{
-    while (x)
-    {
-        if (x&1) cout << 1;
-        else cout << 0;
-        x >>= 1;
-    }
-}
-
 int main()
 {
     //freopen("D:\\test.txt", "r", stdin);
