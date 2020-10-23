@@ -10,24 +10,21 @@
 #include <math.h>
 
 using namespace std;
-int assigned[101], visited[101], t, m, n;
-vector <int> adj[101];
+int vist[101], Assigned[101], m, n, t;
+vector <int> a[101];
 
-bool vist (int u)
+bool go (int u)
 {
-    if (visited[u] == t) return 0;
-    visited[u] = t;
-
-    for (int i = 0; i < adj[u].size(); ++i)
+    if (vist[u] == t) return 0;
+    vist[u] = t;
+    for (int v : a[u])
     {
-        int v = adj[u][i];
-        if (!assigned[v] || vist(assigned[v]))
+        if (!Assigned[v] || go(Assigned[v]))
         {
-            assigned[v] = u;
+            Assigned[v] = u;
             return 1;
         }
     }
-
     return 0;
 }
 
@@ -36,14 +33,13 @@ int main()
     //freopen("D:\\test.txt", "r", stdin);
     //freopen("D:\\test2.txt", "w", stdout);
     scanf("%d%d", &m, &n);
-    int u, v;
-    while (scanf("%d%d", &u, &v) > 0) adj[u].push_back(v);
-    int c = 0;
+    int u, v, c = 0;
+    while (scanf("%d%d", &u, &v) > 0) a[u].push_back(v);
     FOR(i, 1, m)
     {
         ++t;
-        c += vist(i);
+        c += go(i);
     }
     printf("%d\n", c);
-    FOR (i, 1, n) if (assigned[i]) printf("%d %d\n", assigned[i], i);
+    FOR(i, 1, n) if (Assigned[i]) printf("%d %d\n", Assigned[i], i);
 }
